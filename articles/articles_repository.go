@@ -13,7 +13,7 @@ type ArticleRepository struct {
 
 func CreateArticleRepository(db *gorm.DB) (*ArticleRepository, error) {
 
-	err := db.AutoMigrate(&ArticleModelRepository{}, &TagListRepository{})
+	err := db.AutoMigrate(&ArticleModelRepository{})
 
 	if err != nil {
 		return &ArticleRepository{}, err

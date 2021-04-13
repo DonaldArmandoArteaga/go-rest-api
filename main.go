@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/DonaldArmandoArteaga/go-rest-api/articles"
 	articledomain "github.com/DonaldArmandoArteaga/go-rest-api/articles/articles_domain"
+	"github.com/DonaldArmandoArteaga/go-rest-api/tags"
+	"github.com/DonaldArmandoArteaga/go-rest-api/tags/tags_domain"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -10,7 +12,7 @@ import (
 
 func main() {
 
-	dsn := "host=172.17.0.2 user=postgres password=123456 dbname=postgres port=5432 sslmode=disable TimeZone=America/Bogota"
+	dsn := "host=localhost user=postgres password=123456 dbname=postgres port=5432 sslmode=disable TimeZone=America/Bogota"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	//TODO handle error when initializate database connection
@@ -34,6 +36,11 @@ func main() {
 				ArticleRepository: articleRepositoy,
 			},
 		},
+	)
+
+	tags.CreateTagsController(
+		r,
+		tags_domain.CreateTagsService(tags.CreateTagsRepository(db)),
 	)
 
 	r.Run()

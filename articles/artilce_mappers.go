@@ -86,18 +86,12 @@ func ArticleModelRepositoryToArticle(ar *ArticleModelRepository) (*articlesDomai
 
 func ArticleToArticleModelRepository(ar *articlesDomain.Article) *ArticleModelRepository {
 
-	tagList := []TagListRepository{}
-	for _, tag := range ar.TagList() {
-		tagList = append(tagList, TagListRepository{Value: tag})
-	}
-
 	return &ArticleModelRepository{
 		ID:             0,
 		Slug:           ar.Slug(),
 		Title:          ar.Title(),
 		Description:    ar.Description(),
 		Body:           ar.Body(),
-		TagList:        tagList,
 		CreatedAt:      ar.CreatedAt(),
 		UpdatedAt:      ar.UpdatedAt(),
 		Favorited:      ar.Favorited(),
